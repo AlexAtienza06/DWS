@@ -44,16 +44,17 @@ public class ExcusaEntregaDAOImpl implements ExcusaEntregaDAO {
 	public Optional<List<Excusa_entrega>> consultaPerro_Gato() throws SQLException {
 		List<Excusa_entrega> perroGato = new ArrayList<>();
 		Connection connection = conexion.getConexion();
-		try (PreparedStatement statement = connection.prepareStatement(selectPerroGato)) {
-			try (ResultSet resultSet = statement.executeQuery()) {
-				if (resultSet.next()) {
-					perroGato.add(mapRow(resultSet));
-					return Optional.of(perroGato);
-				}
-			} catch (Exception e) {
+		try (PreparedStatement statement = connection.prepareStatement(selectPerroGato);
+				ResultSet resultSet = statement.executeQuery()) {
+			while (resultSet.next()) {
+				perroGato.add(mapRow(resultSet));
 
 			}
+			return Optional.of(perroGato);
+		} catch (Exception e) {
+
 		}
+
 		return Optional.empty();
 	}
 
@@ -63,10 +64,11 @@ public class ExcusaEntregaDAOImpl implements ExcusaEntregaDAO {
 		Connection connection = conexion.getConexion();
 		try (PreparedStatement statement = connection.prepareStatement(selectSinEntrega)) {
 			try (ResultSet resultSet = statement.executeQuery()) {
-				if (resultSet.next()) {
+				while (resultSet.next()) {
 					sinEntrega.add(mapRow(resultSet));
-					return Optional.of(sinEntrega);
+
 				}
+				return Optional.of(sinEntrega);
 			} catch (Exception e) {
 
 			}
@@ -80,10 +82,11 @@ public class ExcusaEntregaDAOImpl implements ExcusaEntregaDAO {
 		Connection connection = conexion.getConexion();
 		try (PreparedStatement statement = connection.prepareStatement(selectDramaNoCreible)) {
 			try (ResultSet resultSet = statement.executeQuery()) {
-				if (resultSet.next()) {
+				while (resultSet.next()) {
 					noCreible.add(mapRow(resultSet));
-					return Optional.of(noCreible);
+
 				}
+				return Optional.of(noCreible);
 			} catch (Exception e) {
 
 			}
