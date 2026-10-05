@@ -5,9 +5,9 @@ import maquinaria.*;
 
 public class Main {
 	public static void main(String[] args) {
-		Mecanico mecanico = new Mecanico("Alejandro Atienza", "600123123", "Frenos");
-		Maquinista maquinista = new Maquinista("Mari Carmen López", "12345678A", 2500, "Jefe de tren");
-		JefeEstacion jefe = new JefeEstacion("José Manuel Pérez", "87654321B");
+		Mecanico mecanico = new Mecanico("Alejandro Atienza Naranjo", "600123123", "Frenos");
+		Maquinista maquinista = new Maquinista("Mari Carmen López Martín", "12345678A", 2500, "Jefe de tren");
+		JefeEstacion jefe = new JefeEstacion("José Manuel Pérez Carmona", "87654321B");
 		Locomotora locomotora = new Locomotora("SE-1234", 3000, 2020, mecanico);
 		Tren tren = new Tren(locomotora, maquinista);
 
