@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi plan de estudio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #edf5ed;
+            color: #244b38;
+            margin: 0;
+            padding: 30px 15px;
+        }
+        main {
+            max-width: 700px;
+            margin: auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px #00000015;
+        }
+        h1 {
+            color: #28734b;
+            text-align: center;
+        }
+        h2 {
+            color: #28734b;
+            margin-top: 30px;
+        }
+        .saludo {
+            background-color: #e1f1e4;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        ul {
+            padding-left: 25px;
+        }
+        li {
+            background-color: #f2f8f2;
+            margin-bottom: 12px;
+            padding: 15px;
+            border-left: 5px solid #65a879;
+            border-radius: 6px;
+        }
+        .resumen {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #e1f1e4;
+            border-radius: 10px;
+        }
+        .total {
+            font-size: 20px;
+            color: #28734b;
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding: 18px;
+            }
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<main>
+    <h1>Mi plan de estudio</h1>
+
+    <div class="saludo">
+        <!-- Mostramos el nombre que viene del controlador. -->
+        <p>¡Hola, <strong th:text="${nombre}">estudiante</strong>!</p>
+
+        <p>Este es tu plan de estudio para hoy.</p>
+    </div>
+
+    <h2>Asignaturas previstas</h2>
+    <!-- Contamos cuántas asignaturas hay en la lista. -->
+    <p>
+        Tienes
+        <strong th:text="${#lists.size(asignaturas)}">3</strong>
+        asignaturas previstas.
+    </p>
+
+    <ul>
+        <!-- Recorremos las asignaturas y guardamos la posición actual. -->
+        <li th:each="asignatura, iterStat : ${asignaturas}">
+
+            <!-- Sumamos uno al índice para empezar a numerar desde 1. -->
+            <strong th:text="${#numbers.sequence(1, #lists.size(asignaturas))[iterStat.index]}">1</strong>.
+
+            <!-- Mostramos el nombre de la asignatura. -->
+            <span th:text="${asignatura}">Programación</span>
+
+            <!-- Usamos la posición para mostrar sus minutos correspondientes. -->
+            <p>
+                Duración:
+                <strong th:text="${duraciones[iterStat.index]}">25</strong>
+                minutos
+            </p>
+
+        </li>
+    </ul>
+
+    <div class="resumen">
+        <h2>Resumen del día</h2>
+        <!-- Mostramos los minutos totales calculados en Java. -->
+        <p>
+            Tiempo total de estudio:
+            <strong class="total" th:text="${totalMinutos}">95</strong>
+            minutos.
+        </p>
+        <!-- Dividimos los minutos entre 60 y mostramos dos decimales. -->
+        <p>
+            Equivale a
+            <strong th:text="${#numbers.formatDecimal(totalMinutos / 60.0, 1, 2)}">1.58</strong>
+            horas aproximadamente.
+        </p>
+    </div>
+</main>
+</body>
+</html>
