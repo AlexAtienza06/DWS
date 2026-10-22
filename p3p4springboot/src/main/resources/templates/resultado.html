@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado de la solicitud</title>
+</head>
+<body>
+<h1>Solicitud de préstamo recibida</h1>
+
+<!-- Explica que los datos se han validado correctamente. -->
+<p>Los datos de tu solicitud son correctos.</p>
+
+<h2>Datos del solicitante</h2>
+
+<!-- Muestra los datos recibidos desde el formulario. -->
+<p>
+    <strong>Nombre:</strong>
+    <span th:text="${solicitud.nombre}"></span>
+</p>
+
+<p>
+    <strong>Correo electrónico:</strong>
+    <span th:text="${solicitud.correo}"></span>
+</p>
+
+<h2>Datos del préstamo</h2>
+
+<!-- Muestra el nombre y el código del material seleccionado. -->
+<p>
+    <strong>Material:</strong>
+    <span th:text="${materialSeleccionado[1]}"></span>
+</p>
+
+<p>
+    <strong>Código:</strong>
+    <span th:text="${materialSeleccionado[0]}"></span>
+</p>
+
+<p>
+    <strong>Unidades solicitadas:</strong>
+    <span th:text="${solicitud.unidades}"></span>
+</p>
+
+<p>
+    <strong>Fecha de recogida:</strong>
+    <span th:text="${solicitud.fechaRecogida}"></span>
+</p>
+
+<p>
+    <strong>Fecha de devolución:</strong>
+    <span th:text="${solicitud.fechaDevolucion}"></span>
+</p>
+
+<p>
+    <strong>Motivo:</strong>
+    <!-- th:text muestra el texto sin interpretarlo como HTML. -->
+    <span th:text="${solicitud.motivo}"></span>
+</p>
+
+<p>
+    <strong>Normas aceptadas:</strong>
+    <span th:text="${solicitud.aceptaNormas ? 'Sí' : 'No'}"></span>
+</p>
+
+<h2>Resumen del préstamo</h2>
+
+<!-- Si recogida y devolución coinciden, se cuenta un único día. -->
+<p th:if="${diasPrestamo == 1}">
+    El préstamo durará 1 día.
+</p>
+
+<!-- Si dura más de un día, muestra el número total. -->
+<p th:if="${diasPrestamo > 1}">
+    Duración del préstamo:
+    <strong th:text="${diasPrestamo}"></strong> días.
+</p>
+
+<!-- Calcula los días-unidad multiplicando duración por unidades. -->
+<p>
+    Total de días-unidad:
+    <strong th:text="${totalDiasUnidad}"></strong>
+</p>
+
+<!-- Permite volver al catálogo de materiales. -->
+<p>
+    <a th:href="@{/}">Volver al catálogo</a>
+</p>
+
+</body>
+</html>

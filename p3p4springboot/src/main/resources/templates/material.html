@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha del material</title>
+</head>
+<body>
+<h1>Ficha del material</h1>
+<h2 th:text="${material[1]}">Nombre del material</h2>
+<p>Código:
+    <span th:text="${material[0]}">CODIGO</span>
+</p>
+<p th:text="${material[2]}">Descripción del material</p>
+<p>
+    Turno solictado:
+    <span th:text="${turno}">general</span>
+</p>
+<!-- El formulario se implementará en la siguiente fase. -->
+<a th:href="@{/solicitud/nueva}">Solicitar préstamo</a>
+
+<p>
+    <a th:href="@{/}">Volver al catálogo</a>
+</p>
+</body>
+</html>

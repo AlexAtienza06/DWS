@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de préstamo</title>
+</head>
+<body>
+<h1>Solicitud de préstamo de material</h1>
+
+<!-- Enlaza el formulario con el DTO y envía los datos mediante POST. -->
+<form th:action="@{/solicitudes}"
+      th:object="${solicitud}"
+      method="post">
+
+    <p>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre"
+               th:field="*{nombre}" maxlength="60" required>
+    </p>
+    <!-- Muestra el error si el nombre no cumple las validaciones. -->
+    <p th:if="${#fields.hasErrors('nombre')}"
+       th:errors="*{nombre}"></p>
+
+    <p>
+        <label for="correo">Correo electrónico:</label>
+        <input type="email" id="correo"
+               th:field="*{correo}" maxlength="120" required>
+    </p>
+    <!-- Muestra el error si el correo está vacío o tiene un formato incorrecto. -->
+    <p th:if="${#fields.hasErrors('correo')}"
+       th:errors="*{correo}"></p>
+
+    <p>
+        <label for="material">Material solicitado:</label>
+        <select id="material" th:field="*{material}" required>
+            <option value="">Selecciona un material</option>
+
+            <!-- Recorre el array para crear las opciones del selector. -->
+            <option th:each="m : ${materiales}"
+                    th:value="${m[0]}"
+                    th:text="${m[1]}">
+            </option>
+        </select>
+    </p>
+    <!-- Muestra el error si no se ha seleccionado un material válido. -->
+    <p th:if="${#fields.hasErrors('material')}"
+       th:errors="*{material}"></p>
+
+    <p>
+        <label for="unidades">Unidades (1-3):</label>
+        <input type="number" id="unidades"
+               th:field="*{unidades}" min="1" max="3" required>
+    </p>
+    <!-- Muestra el error si las unidades no están entre 1 y 3. -->
+    <p th:if="${#fields.hasErrors('unidades')}"
+       th:errors="*{unidades}"></p>
+
+    <p>
+        <label for="fechaRecogida">Fecha de recogida:</label>
+        <input type="date" id="fechaRecogida"
+               th:field="*{fechaRecogida}" required>
+    </p>
+    <!-- Muestra el error si la fecha de recogida no es válida. -->
+    <p th:if="${#fields.hasErrors('fechaRecogida')}"
+       th:errors="*{fechaRecogida}"></p>
+
+    <p>
+        <label for="fechaDevolucion">Fecha de devolución:</label>
+        <input type="date" id="fechaDevolucion"
+               th:field="*{fechaDevolucion}" required>
+    </p>
+    <!-- Muestra también el error si la devolución es anterior a la recogida. -->
+    <p th:if="${#fields.hasErrors('fechaDevolucion')}"
+       th:errors="*{fechaDevolucion}"></p>
+
+    <p>
+        <label for="motivo">Motivo del préstamo:</label>
+        <textarea id="motivo" th:field="*{motivo}"
+                  minlength="30" maxlength="400" required></textarea>
+    </p>
+    <!-- Muestra el error si el motivo no tiene entre 30 y 400 caracteres. -->
+    <p th:if="${#fields.hasErrors('motivo')}"
+       th:errors="*{motivo}"></p>
+
+    <p>
+        <input type="checkbox" id="aceptaNormas"
+               th:field="*{aceptaNormas}" required>
+        <label for="aceptaNormas">
+            Acepto las normas del préstamo
+        </label>
+    </p>
+    <!-- Muestra el error si no se han aceptado las normas. -->
+    <p th:if="${#fields.hasErrors('aceptaNormas')}"
+       th:errors="*{aceptaNormas}"></p>
+
+    <button type="submit">Enviar solicitud</button>
+</form>
+
+<!-- Permite regresar al catálogo sin enviar el formulario. -->
+<p>
+    <a th:href="@{/}">Volver al catálogo</a>
+</p>
+</body>
+</html>

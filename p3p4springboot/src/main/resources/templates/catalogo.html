@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo</title>
+</head>
+<body>
+    <h1>Material disponible</h1>
+    <!-- Thymeleaf recorre todas las filas del array. -->
+    <section th:each="material : ${materiales}">
+        <h2 th:text="${material[1]}">Nombre del material</h2>
+        <p>
+            Código:
+            <span th:text="${material[0]}">CODIGO</span>
+        </p>
+        <p th:text="${material[2]}">Descripción</p>
+        <a th:href="@{/materiales/{codigo}(codigo=${material[0]})}">Ver ficha</a>
+    </section>
+</body>
+</html>
