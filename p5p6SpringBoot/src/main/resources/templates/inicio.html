@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morón Cofrade</title>
+    <!-- Cargamos nuestros estilos CSS. -->
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+
+<body>
+<!-- Cabecera compartida con el resto de páginas. -->
+<header th:replace="~{fragmentos :: cabecera('inicio.titulo', 'inicio.subtitulo')}"></header>
+<!-- Menú compartido. Pasamos '/' para cambiar el idioma en esta página. -->
+<nav th:replace="~{fragmentos :: navegacion('/')}"></nav>
+<main>
+    <!-- Presentación de las actividades. -->
+    <section class="presentacion">
+        <h2 th:text="#{inicio.actividades}">
+            Actos de Cuaresma 2027</h2>
+        <p th:text="#{inicio.subtitulo}">
+            Tradición y cultura en Morón
+        </p>
+    </section>
+    <section class="actividades">
+        <!-- Recorremos el array y creamos una tarjeta por cada actividad. -->
+        <th:block th:each="actividad : ${actividades}">
+            <!-- Pasamos los tres datos al fragmento de la tarjeta. -->
+            <article th:replace="~{fragmentos :: actividad(
+            ${actividad[0]},
+            ${actividad[1]},
+            ${actividad[2]}
+            )}">
+            </article>
+        </th:block>
+
+    </section>
+
+    <!-- Enlace para acceder a la página de visita. -->
+    <div class="boton-visita">
+        <a th:href="@{/visita}" th:text="#{inicio.boton}">
+            Prepara tu visita
+        </a>
+    </div>
+
+</main>
+
+<!-- Pie de página compartido. -->
+<footer th:replace="~{fragmentos :: pie}">
+</footer>
+</body>
+</html>

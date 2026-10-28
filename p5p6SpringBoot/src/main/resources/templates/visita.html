@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morón Cofrade</title>
+    <!-- Utilizamos la misma hoja de estilos que en la página de inicio. -->
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+
+<body>
+<!-- Cabecera compartida, ahora con el contenido de la página de visita. -->
+<header th:replace="~{fragmentos :: cabecera('visita.titulo', 'visita.subtitulo')}">
+</header>
+<!-- Reutilizamos el menú e indicamos la ruta actual. -->
+<nav th:replace="~{fragmentos :: navegacion('/visita')}">
+</nav>
+<main>
+    <section class="informacion">
+        <!-- Información sobre los horarios. -->
+        <article class="bloque-info">
+            <h2 th:text="#{visita.horario.titulo}">Horarios</h2>
+            <p th:text="#{visita.horario.texto}">Información de los horarios</p>
+        </article>
+
+        <!-- Información sobre el acceso. -->
+        <article class="bloque-info">
+            <h2 th:text="#{visita.entradas.titulo}">Acceso a los actos</h2>
+            <p th:text="#{visita.entradas.texto}">Información de acceso</p>
+        </article>
+
+        <!-- Información sobre los lugares. -->
+        <article class="bloque-info">
+            <h2 th:text="#{visita.llegar.titulo}">Lugares que visitar</h2>
+            <p th:text="#{visita.llegar.texto}">Información de los lugares</p>
+        </article>
+
+        <!-- Información sobre el patrimonio y el respeto que hay que mostrar. -->
+        <article class="bloque-info">
+            <h2 th:text="#{visita.accesibilidad.titulo}">Respeto por nuestro patrimonio</h2>
+            <p th:text="#{visita.accesibilidad.texto}">Información sobre el patrimonio</p>
+        </article>
+    </section>
+
+    <!-- Volvemos a la página de actos. -->
+    <div class="boton-visita">
+        <a th:href="@{/}" th:text="#{visita.volver}">Volver a los actos</a>
+    </div>
+</main>
+
+<!-- Reutilizamos el mismo pie de página. -->
+<footer th:replace="~{fragmentos :: pie}">
+</footer>
+</body>
+</html>

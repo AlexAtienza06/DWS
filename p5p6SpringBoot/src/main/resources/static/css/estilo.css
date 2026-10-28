@@ -1,0 +1,136 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f7f3f7;
+    color: #333;
+}
+
+/* Cabecera */
+header {
+    background-color: #482052;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    border-bottom: 4px solid #c5a45d;
+}
+
+/* Menu */
+nav {
+    background-color: #32153a;
+    text-align: center;
+    padding: 15px;
+}
+
+nav a, nav span {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+}
+
+nav a:hover {
+    color: #e6cc86;
+    text-decoration: underline;
+}
+
+/* Contenido principal */
+main {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+/* Presentacion */
+.presentacion {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.presentacion h2 {
+    color: #482052;
+}
+
+/* Actividades */
+.actividades {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* Tarjetas de los actos */
+.tarjeta {
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #ddd0df;
+    border-top: 4px solid #a58a45;
+    border-radius: 6px;
+}
+
+.tarjeta h3 {
+    color: #482052;
+}
+
+/* Datos de las actividades */
+.dato {
+    color: #6b5b6e;
+    font-size: 14px;
+}
+
+/* Informacion de la visita */
+.informacion {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.bloque-info {
+    background-color: white;
+    padding: 15px;
+    border-left: 4px solid #a58a45;
+    border-radius: 4px;
+}
+
+.bloque-info h2 {
+    color: #482052;
+}
+
+/* Enlaces destacados */
+.boton-visita {
+    text-align: center;
+    margin: 30px;
+}
+
+.boton-visita a {
+    display: inline-block;
+    background-color: #482052;
+    color: white;
+    padding: 12px 18px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.boton-visita a:hover {
+    background-color: #32153a;
+}
+
+/* Pie de pagina */
+footer {
+    background-color: #32153a;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    margin-top: 30px;
+    border-top: 3px solid #c5a45d;
+}
+
+/* Adaptacion a moviles */
+@media (max-width: 700px) {
+    .actividades, .informacion {
+        grid-template-columns: 1fr;
+    }
+
+    nav a, nav span {
+        display: inline-block;
+        margin: 5px;
+    }
+}

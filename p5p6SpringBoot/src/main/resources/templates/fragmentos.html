@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Morón Cofrade</title>
+</head>
+<body>
+<!-- Creamos una cabecera que vamos a utilizar en las dos páginas.
+     Recibe el título y el subtítulo para que cada página pueda mostrar su propio contenido.-->
+<header th:fragment="cabecera(titulo, subtitulo)">
+    <h1 th:text="#{cabecera.nombre}">Morón Cofrade</h1>
+    <!-- Buscamos el texto correspondiente en el archivo de mensajes del idioma elegido. -->
+    <h2 th:text="${#messages.msg(titulo)}">Título de la página</h2>
+    <p th:text="${#messages.msg(subtitulo)}">Subtítulo de la página</p>
+</header>
+
+<!-- Menú común a las dos páginas. Recibe la ruta actual para que podamos cambiar de idioma sin salir de ella. -->
+<nav th:fragment="navegacion(pagina)">
+    <!-- Enlace para volver a la página principal. -->
+    <a th:href="@{/}" th:text="#{menu.inicio}">Inicio</a>
+    <!-- Enlace para entrar en la página de visita. -->
+    <a th:href="@{/visita}" th:text="#{menu.visita}">Prepara tu visita</a>
+
+    <!-- Mostramos las opciones para cambiar de idioma. -->
+    <span th:text="#{menu.idioma}">Idioma</span>
+
+    <a th:href="@{${pagina}(lang='es')}"
+       th:text="#{menu.espanol}">Español</a>
+    <a th:href="@{${pagina}(lang='en')}"
+       th:text="#{menu.ingles}">Inglés</a>
+
+</nav>
+
+<!-- Pie de página compartido. -->
+<footer th:fragment="pie">
+    <p th:text="#{pie.texto}">Morón de la Frontera | Preparando la Semana Santa 2027</p>
+</footer>
+
+<!--Tarjeta reutilizable para las actividades.
+    Recibe las claves de traducción como parámetros.
+    Así no necesitamos crear una tarjeta diferente para cada actividad.-->
+<article th:fragment="actividad(titulo, descripcion, dato)"
+         class="tarjeta">
+    <h3 th:text="${#messages.msg(titulo)}">Título del acto</h3>
+    <p th:text="${#messages.msg(descripcion)}">Descripción del acto</p>
+    <p class="dato" th:text="${#messages.msg(dato)}">Fecha y lugar</p>
+</article>
+</body>
+</html>
