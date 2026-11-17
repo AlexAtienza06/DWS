@@ -1,0 +1,526 @@
+
+/* ==========================================================
+   ESTILOS DEL FORMULARIO PARA CREAR EL PORTFOLIO
+   Diseño moderno, elegante y adaptable
+   ========================================================== */
+
+/* 1. ESTILOS GENERALES */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --azul-oscuro: #172b4d;
+    --azul-principal: #2456a6;
+    --azul-claro: #eaf1fc;
+    --azul-suave: #f3f7fd;
+    --texto: #263247;
+    --texto-secundario: #5c6b82;
+    --borde: #dce4ef;
+    --blanco: #ffffff;
+    --sombra: 0 8px 25px rgba(23, 43, 77, 0.08);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: var(--texto);
+    line-height: 1.6;
+
+    background:
+            radial-gradient(circle at top left, rgba(36, 86, 166, 0.10), transparent 35%),
+            radial-gradient(circle at bottom right, rgba(36, 86, 166, 0.07), transparent 35%),
+            #f1f4f9;
+}
+
+
+/* 2. CABECERA */
+
+header {
+    position: relative;
+    text-align: center;
+    padding: 35px 20px 42px;
+    color: var(--blanco);
+
+    background: linear-gradient(135deg, #172b4d, #2456a6);
+    border-bottom: 5px solid #6c9ee8;
+    box-shadow: 0 7px 22px rgba(23, 43, 77, 0.18);
+}
+
+header h1 {
+    margin: 18px 0 12px;
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+header h1::after {
+    content: "";
+    display: block;
+    width: 65px;
+    height: 4px;
+    margin: 15px auto 0;
+    border-radius: 10px;
+    background-color: #9fc5ff;
+}
+
+
+/* 3. BOTÓN CENTRADO PARA VOLVER AL INICIO */
+
+.acceso-inicio {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    min-width: 225px;
+    padding: 11px 22px;
+
+    color: white;
+    background: rgba(255, 255, 255, 0.13);
+    border: 2px solid rgba(255, 255, 255, 0.65);
+    border-radius: 14px;
+
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16);
+    transition: all 0.25s ease;
+}
+
+/* Iniciales AA */
+.acceso-inicio__marca {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 34px;
+
+    color: var(--azul-oscuro);
+    background: white;
+    border-radius: 9px;
+
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+/* Texto del botón */
+.acceso-inicio__texto {
+    white-space: nowrap;
+}
+
+/* Flecha */
+.acceso-inicio__flecha {
+    font-size: 21px;
+    transition: transform 0.25s ease;
+}
+
+/* Efectos al pasar el ratón */
+.acceso-inicio:hover {
+    color: white;
+    background: #ffffff;
+    border-color: white;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+    transform: translateY(-3px);
+}
+
+.acceso-inicio:hover .acceso-inicio__texto,
+.acceso-inicio:hover .acceso-inicio__flecha {
+    color: var(--azul-oscuro);
+}
+
+.acceso-inicio:hover .acceso-inicio__flecha {
+    transform: translateX(-4px);
+}
+
+.acceso-inicio:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 5px;
+}
+
+
+/* 4. SELECTOR DE IDIOMAS */
+
+.idiomas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.idiomas form {
+    display: inline;
+    margin: 0;
+}
+
+.idiomas a,
+.enlace-idioma {
+    color: #dce9ff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.idiomas a:hover,
+.enlace-idioma:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.enlace-idioma {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+
+/* 5. CONTENIDO PRINCIPAL */
+
+main {
+    width: 90%;
+    max-width: 1050px;
+    margin: 40px auto;
+}
+
+
+/* 6. MENSAJES DE VALIDACIÓN */
+
+main > p {
+    margin-bottom: 20px;
+    padding: 14px 18px;
+
+    color: #9d2635;
+    background-color: #fff0f1;
+    border: 1px solid #f3c5ca;
+    border-left: 5px solid #c0394b;
+    border-radius: 9px;
+
+    font-weight: bold;
+}
+
+
+/* 7. SECCIONES */
+
+section {
+    padding: 30px;
+    margin-bottom: 28px;
+
+    background-color: white;
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    box-shadow: var(--sombra);
+
+    transition: box-shadow 0.25s ease;
+}
+
+section:hover {
+    box-shadow: 0 12px 30px rgba(23, 43, 77, 0.11);
+}
+
+section h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 25px;
+    padding-bottom: 14px;
+
+    color: var(--azul-oscuro);
+    border-bottom: 2px solid var(--borde);
+
+    font-size: 23px;
+}
+
+section h2::before {
+    content: "";
+    width: 6px;
+    height: 27px;
+    flex-shrink: 0;
+
+    background: var(--azul-principal);
+    border-radius: 5px;
+}
+
+
+/* 8. CAMPOS DEL FORMULARIO */
+
+section > div {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+
+    color: var(--azul-oscuro);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea {
+    display: block;
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 7px;
+
+    color: var(--texto);
+    background-color: #fbfcfe;
+
+    border: 1px solid #cfd8e5;
+    border-radius: 8px;
+
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: #9bb4d8;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--azul-principal);
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(36, 86, 166, 0.13);
+}
+
+textarea {
+    min-height: 115px;
+    resize: vertical;
+}
+
+
+/* 9. TARJETAS DE PROYECTOS */
+
+article {
+    padding: 24px;
+    margin-bottom: 22px;
+
+    background: linear-gradient(145deg, #ffffff, #f6f8fc);
+    border: 1px solid var(--borde);
+    border-radius: 13px;
+
+    box-shadow: 0 3px 12px rgba(23, 43, 77, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+article:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(23, 43, 77, 0.10);
+}
+
+article h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin: 0 0 22px;
+    padding-bottom: 12px;
+
+    color: var(--azul-principal);
+    border-bottom: 1px solid var(--borde);
+
+    font-size: 19px;
+}
+
+
+/* 10. MENSAJES DE ERROR DE CADA CAMPO */
+
+article p,
+section > div > p {
+    margin: 5px 0 12px;
+    color: #b02a37;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* 11. BOTONES */
+
+button {
+    display: inline-block;
+    padding: 11px 19px;
+    margin: 7px 7px 7px 0;
+
+    color: white;
+    background: linear-gradient(135deg, #315f91, #2456a6);
+    border: none;
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+
+    box-shadow: 0 3px 9px rgba(36, 86, 166, 0.17);
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #24476d, #173e80);
+    box-shadow: 0 6px 14px rgba(36, 86, 166, 0.23);
+    transform: translateY(-2px);
+}
+
+button:focus-visible {
+    outline: 3px solid #79a9ed;
+    outline-offset: 3px;
+}
+
+
+/* 12. BOTONES PARA CAMBIAR EL IDIOMA */
+
+.idiomas .enlace-idioma {
+    color: #dce9ff;
+    background: none;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    font-size: 14px;
+}
+
+.idiomas .enlace-idioma:hover {
+    color: white;
+    text-decoration: underline;
+    transform: none;
+}
+
+
+/* 13. ESTADOS DE LOS PROYECTOS */
+
+.estado-curso,
+.estado-terminado {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.estado-curso {
+    color: #12633c;
+    background-color: #d9f3e4;
+}
+
+.estado-terminado {
+    color: #475569;
+    background-color: #e9edf2;
+}
+
+
+/* 14. TEXTOS */
+
+main section p {
+    line-height: 1.7;
+    color: var(--texto-secundario);
+}
+
+
+/* 15. ADAPTACIÓN A TABLETS Y MÓVILES */
+
+@media (max-width: 700px) {
+
+    main {
+        width: 94%;
+        margin: 24px auto;
+    }
+
+    header {
+        padding: 28px 15px 30px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    section {
+        padding: 20px;
+    }
+
+    article {
+        padding: 17px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    header {
+        padding: 25px 12px;
+    }
+
+    header h1 {
+        font-size: 23px;
+    }
+
+    .acceso-inicio {
+        min-width: 0;
+        width: 100%;
+        max-width: 235px;
+        padding: 9px 12px;
+        gap: 9px;
+        font-size: 13px;
+    }
+
+    .acceso-inicio__marca {
+        width: 34px;
+        height: 32px;
+        font-size: 16px;
+    }
+
+    .idiomas {
+        margin-top: 17px;
+    }
+
+    section {
+        padding: 16px;
+    }
+
+    section h2 {
+        font-size: 20px;
+    }
+
+    article {
+        padding: 14px;
+    }
+
+    button {
+        max-width: 100%;
+    }
+}
+
+
+/* 16. MOVIMIENTO REDUCIDO */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}

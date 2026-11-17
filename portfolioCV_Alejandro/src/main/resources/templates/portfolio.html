@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{portfolio.titulo}">Mi portfolio</title>
+
+    <!-- Cargamos los estilos del portfolio -->
+    <link rel="stylesheet" th:href="@{/estilos2.css}">
+</head>
+<body>
+<header class="cabecera-portfolio">
+    <!-- Acceso para volver a la página de inicio -->
+    <a th:href="@{/(lang=${#locale.language})}" class="acceso-inicio" th:attr="aria-label=#{inicio.volver}">
+        <span class="acceso-inicio__marca">AA.</span>
+        <span class="acceso-inicio__texto" th:text="#{inicio.volver}">Volver al inicio</span>
+        <span class="acceso-inicio__flecha" aria-hidden="true">←</span>
+    </a>
+
+    <!-- Título y descripción de la página -->
+    <h1 th:text="#{portfolio.titulo}">Mi portfolio</h1>
+    <p th:text="#{portfolio.descripcion}">Estos son algunos de mis proyectos.</p>
+
+    <!-- Selector de idioma -->
+    <div class="idiomas">
+        <a th:href="@{/portfolio(lang='es', categoria=${categoriaSeleccionada}, anio=${anioSeleccionado})}">Español</a>
+        |
+        <a th:href="@{/portfolio(lang='en', categoria=${categoriaSeleccionada}, anio=${anioSeleccionado})}">English</a>
+    </div>
+</header>
+
+<main>
+    <section>
+        <h2 th:text="#{portfolio.proyectos}">Mis proyectos</h2>
+        <!-- Formulario para filtrar los proyectos por categoría y año -->
+        <form th:action="@{/portfolio}" method="get">
+            <label for="categoria" th:text="#{portfolio.categoria}">Categoría:</label>
+            <select id="categoria" name="categoria">
+                <option value="" th:text="#{portfolio.todas}" th:selected="${categoriaSeleccionada == ''}">Todas
+                </option>
+                <option value="Aplicaciones" th:selected="${categoriaSeleccionada == 'Aplicaciones'}"
+                        th:text="#{portfolio.aplicaciones}">Aplicaciones
+                </option>
+                <option value="Sitios web" th:selected="${categoriaSeleccionada == 'Sitios web'}"
+                        th:text="#{portfolio.sitiosWeb}">Sitios web
+                </option>
+                <option value="Diseño" th:selected="${categoriaSeleccionada == 'Diseño'}" th:text="#{portfolio.diseno}">
+                    Diseño
+                </option>
+            </select>
+
+            <label for="anio" th:text="#{portfolio.anio}">Año:</label>
+            <input type="number" id="anio" name="anio" th:value="${anioSeleccionado}">
+            <button type="submit" th:text="#{portfolio.filtrar}">Filtrar</button>
+
+            <!-- Enlace para quitar los filtros -->
+            <a th:href="@{/portfolio}" th:text="#{portfolio.mostrarTodos}">Mostrar todos</a>
+        </form>
+
+        <!-- Mensaje si el año introducido no es válido -->
+        <p th:if="${errorAnio}" th:text="#{portfolio.errorAnio}">Introduce un año válido.</p>
+
+        <!-- Mostramos el número de proyectos encontrados -->
+        <p class="contador-resultados">
+            <span th:text="#{portfolio.resultados}">Proyectos encontrados:</span>
+            <strong th:text="${totalProyectos}">0</strong>
+        </p>
+
+        <!-- Mensaje cuando no hay proyectos que coincidan con los filtros -->
+        <div class="sin-resultados" th:if="${#lists.isEmpty(proyectos)}">
+            <p th:text="#{portfolio.sinResultados}">No se encontraron proyectos.</p>
+        </div>
+
+        <!-- Recorremos la lista para mostrar una tarjeta por cada proyecto -->
+        <div th:each="proyecto : ${proyectos}" class="tarjeta-proyecto">
+            <!-- Mostramos la imagen solamente si el proyecto tiene una -->
+            <img th:if="${proyecto.imagen != null and !proyecto.imagen.isEmpty()}" th:src="${proyecto.imagen}"
+                 th:alt="${proyecto.titulo}">
+
+            <!-- Título del proyecto -->
+            <h3 th:text="${proyecto.titulo}">Título del proyecto</h3>
+
+            <!-- Año en el que se realizó el proyecto -->
+            <p>
+                <strong th:text="#{portfolio.anio}">Año:</strong>
+                <span th:text="${proyecto.anio}">2026</span>
+            </p>
+
+            <!-- Mostramos la categoría traducida según el idioma -->
+            <p>
+                <strong th:text="#{portfolio.categoria}">Categoría:</strong>
+                <span th:switch="${proyecto.categoria}">
+                    <span th:case="'Aplicaciones'" th:text="#{portfolio.aplicaciones}">Aplicaciones</span>
+                    <span th:case="'Sitios web'" th:text="#{portfolio.sitiosWeb}">Sitios web</span>
+                    <span th:case="'Diseño'" th:text="#{portfolio.diseno}">Diseño</span>
+                </span>
+            </p>
+
+            <!-- Descripción del proyecto -->
+            <p th:text="${proyecto.descripcion}">Descripción del proyecto.</p>
+
+            <!-- Mostramos el estado del proyecto con su clase correspondiente -->
+            <p>
+                <strong th:text="#{portfolio.estado}">Estado:</strong>
+                <span th:switch="${proyecto.estado}">
+                    <span th:case="'En curso'" th:text="#{portfolio.enCurso}" class="estado-curso">En curso</span>
+                    <span th:case="'Terminado'" th:text="#{portfolio.terminado}"
+                          class="estado-terminado">Terminado</span>
+                </span>
+            </p>
+
+            <!-- Mostramos las tecnologías si el proyecto tiene alguna -->
+            <div th:if="${proyecto.tecnologias != null and proyecto.tecnologias.length > 0}">
+                <strong th:text="#{portfolio.tecnologias}">Tecnologías:</strong>
+                <ul>
+                    <li th:each="tecnologia : ${proyecto.tecnologias}" th:text="${tecnologia}">Tecnología</li>
+                </ul>
+            </div>
+
+            <!-- Mostramos el enlace solamente si existe -->
+            <a th:if="${proyecto.enlace != null and !proyecto.enlace.isEmpty()}" th:href="${proyecto.enlace}"
+               target="_blank" rel="noopener noreferrer" th:text="#{portfolio.verProyecto}">Ver proyecto</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

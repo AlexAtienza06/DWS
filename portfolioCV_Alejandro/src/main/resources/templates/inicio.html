@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="es"
+      th:lang="${#locale.language}"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title th:text="#{inicio.titulo}">Mi currículum y portfolio web</title>
+
+    <link rel="stylesheet" th:href="@{/inicio.css}">
+</head>
+
+<body>
+
+<main class="inicio">
+
+    <!-- Cabecera de la página -->
+    <header class="cabecera">
+        <a th:href="@{/}" class="logo">AA.</a>
+
+        <!-- Selector de idioma -->
+        <nav class="idiomas">
+            <a th:href="@{/(lang='es')}">ES</a>
+            <span>|</span>
+            <a th:href="@{/(lang='en')}">EN</a>
+        </nav>
+    </header>
+
+    <!-- Presentación principal -->
+    <section class="presentacion">
+
+        <span class="etiqueta" th:text="#{inicio.etiqueta}">
+            PORTFOLIO PERSONAL
+        </span>
+
+        <h1 th:text="#{inicio.titulo}">
+            Mi currículum y portfolio web
+        </h1>
+
+        <p th:text="#{inicio.bienvenida}">
+            Bienvenido a mi página personal
+        </p>
+
+        <p class="texto-secundario" th:text="#{inicio.descripcion}">
+            Conoce mi formación, mis habilidades y los proyectos en los que trabajo.
+        </p>
+
+    </section>
+
+    <!-- Accesos principales -->
+    <section class="opciones">
+
+        <!-- Acceso al currículum -->
+        <a th:href="@{/curriculum}" class="tarjeta">
+            <div class="icono">01</div>
+
+            <div>
+                <h2 th:text="#{inicio.verCurriculum}">
+                    Ver mi currículum
+                </h2>
+
+                <p th:text="#{inicio.descripcionCurriculum}">
+                    Conoce mi formación, experiencia y habilidades.
+                </p>
+            </div>
+
+            <span class="flecha">→</span>
+        </a>
+
+        <!-- Acceso al portfolio -->
+        <a th:href="@{/portfolio}" class="tarjeta">
+            <div class="icono">02</div>
+
+            <div>
+                <h2 th:text="#{inicio.verPortfolio}">
+                    Ver mi portfolio
+                </h2>
+
+                <p th:text="#{inicio.descripcionPortfolio}">
+                    Descubre los proyectos que he realizado.
+                </p>
+            </div>
+
+            <span class="flecha">→</span>
+        </a>
+
+        <!-- Acceso al formulario para editar el portfolio -->
+        <a th:href="@{/portfolio/editar}" class="tarjeta">
+            <div class="icono">03</div>
+
+            <div>
+                <h2 th:text="#{inicio.editarPortfolio}">
+                    Crear mi portfolio
+                </h2>
+
+                <p th:text="#{inicio.descripcionEditar}">
+                    Rellena el formulario y genera tu propio portfolio.
+                </p>
+            </div>
+
+            <span class="flecha">→</span>
+        </a>
+    </section>
+
+    <!-- Pie de página -->
+    <footer>
+        <p th:text="#{inicio.pie}">
+            Currículum y portfolio personal
+        </p>
+    </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{inicio.titulo}">Mi currículum</title>
+
+    <!-- Cargamos las tipografías y la hoja de estilos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" th:href="@{/estilos.css}">
+</head>
+<body>
+<main class="curriculum">
+    <!-- Logotipo para volver al inicio -->
+    <a th:href="@{/(lang=${#locale.language})}" class="logo-inicio">
+        <span class="logo-inicio__marca">AA.</span>
+        <span class="logo-inicio__texto">Volver al inicio</span>
+        <span class="logo-inicio__flecha" aria-hidden="true">←</span>
+    </a>
+    <!-- Mostramos los datos personales -->
+    <header>
+        <h1 th:text="${cv.nombre}">Mi nombre</h1>
+        <h2 th:text="${cv.titular}">Mi profesión</h2>
+        <p th:text="${cv.presentacion}">Presentación personal</p>
+    </header>
+
+    <!-- Solo mostramos el contacto si hay algún dato disponible -->
+    <section
+            th:if="${(cv.correo != null and !cv.correo.isEmpty()) or (cv.telefono != null and !cv.telefono.isEmpty()) or (cv.ciudad != null and !cv.ciudad.isEmpty())}">
+        <h2 th:text="#{cv.contacto}">Contacto</h2>
+
+        <p th:if="${cv.correo != null and !cv.correo.isEmpty()}">
+            <span th:text="#{cv.correo}">Correo</span>:
+            <a th:href="'mailto:' + ${cv.correo}" th:text="${cv.correo}"></a>
+        </p>
+
+        <p th:if="${cv.telefono != null and !cv.telefono.isEmpty()}">
+            <span th:text="#{cv.telefono}">Teléfono</span>:
+            <a th:href="'tel:' + ${cv.telefono}" th:text="${cv.telefono}"></a>
+        </p>
+
+        <p th:if="${cv.ciudad != null and !cv.ciudad.isEmpty()}">
+            <span th:text="#{cv.ubicacion}">Ubicación</span>:
+            <span th:text="${cv.ciudad}">Morón de la Frontera</span>
+        </p>
+    </section>
+
+    <!-- Recorremos y mostramos los estudios realizados -->
+    <section>
+        <h2 th:text="#{cv.formacion}">Formación académica</h2>
+
+        <div th:each="formacion : ${cv.formaciones}">
+            <h3 th:text="${formacion.titulo}">Nombre de los estudios</h3>
+            <p th:text="${formacion.centro}">Centro educativo</p>
+            <p>
+                <!-- Comprobamos si los estudios siguen en curso -->
+                <span th:if="${formacion.fechaFin == null}" th:text="#{cv.enCurso}">En curso</span>
+
+                <!-- Si han terminado, mostramos sus fechas -->
+                <span th:if="${formacion.fechaFin != null}"><span th:text="${formacion.fechaInicio}"></span>-<span
+                        th:text="${formacion.fechaFin}"></span>
+                </span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Mostramos los trabajos y las prácticas realizadas -->
+    <section>
+        <h2 th:text="#{cv.experiencia}">Experiencia laboral</h2>
+
+        <!-- Si no hay experiencias, mostramos un mensaje -->
+        <div th:if="${#arrays.isEmpty(cv.experiencias)}">
+            <p th:text="#{cv.sinExperiencia}">En busca de mi primera experiencia.</p>
+        </div>
+
+        <div th:each="experiencia : ${cv.experiencias}">
+            <h3 th:text="${experiencia.puesto}">Puesto de trabajo</h3>
+            <p th:text="${experiencia.empresa}">Empresa</p>
+            <p th:text="${experiencia.periodo}">Periodo de trabajo</p>
+            <p th:text="${experiencia.descripcion}">Descripción de la experiencia</p>
+        </div>
+    </section>
+
+    <!-- Mostramos las habilidades con su nivel correspondiente -->
+    <section>
+        <h2 th:text="#{cv.habilidades}">Habilidades</h2>
+        <div th:each="habilidad : ${cv.habilidades}">
+            <span th:text="${habilidad.nombre}">Nombre de la habilidad</span>
+
+            <!-- Según el nivel, aplicamos una clase diferente -->
+            <span th:switch="${habilidad.nivel}">
+                <span th:case="'alto'" class="nivel-alto" th:text="#{cv.alto}">Alto</span>
+                <span th:case="'medio'" class="nivel-medio" th:text="#{cv.medio}">Medio</span>
+                <span th:case="'bajo'" class="nivel-bajo" th:text="#{cv.bajo}">Bajo</span>
+            </span>
+        </div>
+    </section>
+
+    <!-- Mostramos los idiomas y su nivel -->
+    <section>
+        <h2 th:text="#{cv.idiomas}">Idiomas</h2>
+        <div th:each="idioma : ${cv.idiomas}">
+            <span th:text="${idioma.nombre}">Nombre del idioma</span>
+
+            <!-- Utilizamos los mismos niveles que en las habilidades -->
+            <span th:switch="${idioma.nivel}">
+                <span th:case="'alto'" class="nivel-alto" th:text="#{cv.alto}">Alto</span>
+                <span th:case="'medio'" class="nivel-medio" th:text="#{cv.medio}">Medio</span>
+                <span th:case="'bajo'" class="nivel-bajo" th:text="#{cv.bajo}">Bajo</span>
+            </span>
+        </div>
+    </section>
+
+    <!-- Enlaces para cambiar el idioma de la página -->
+    <footer>
+        <a th:href="@{/curriculum(lang='es')}">Español</a>
+        |
+        <a th:href="@{/curriculum(lang='en')}">English</a>
+    </footer>
+</main>
+</body>
+</html>

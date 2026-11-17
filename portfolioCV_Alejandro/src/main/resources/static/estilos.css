@@ -1,0 +1,891 @@
+/* ==========================================================================
+   HOJA DE ESTILOS: CURRÍCULUM VITAE
+   Diseño profesional, limpio y adaptable
+   Compatible con HTML5, Thymeleaf y diseño responsive
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. TIPOGRAFÍAS Y VARIABLES
+   -------------------------------------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* --------------------------------------------------------------------------
+   ACCESO A LA PÁGINA DE INICIO
+   -------------------------------------------------------------------------- */
+
+.logo-inicio {
+    grid-column: 1 / -1;
+    justify-self: start;
+    align-self: start;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+
+    width: fit-content;
+    max-width: 100%;
+    min-height: 66px;
+    padding: 9px 20px 9px 10px;
+
+    color: white;
+    background: linear-gradient(120deg, #0f766e, #115e59);
+    border: 1px solid rgba(15, 118, 110, 0.25);
+    border-radius: 16px;
+
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+
+    box-shadow: 0 6px 16px rgba(15, 118, 110, 0.20);
+
+    transition:
+            background 0.25s ease,
+            transform 0.25s ease,
+            box-shadow 0.25s ease;
+}
+
+/* Distintivo con las iniciales */
+.logo-inicio__marca {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 48px;
+    height: 46px;
+
+    color: #0f766e;
+    background: white;
+    border-radius: 11px;
+
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+/* Texto del acceso */
+.logo-inicio__texto {
+    line-height: 1.3;
+}
+
+/* Flecha decorativa */
+.logo-inicio__flecha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+
+    color: white;
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 50%;
+
+    font-size: 1.2rem;
+
+    transition: transform 0.25s ease;
+}
+
+/* Efecto al pasar el ratón */
+.logo-inicio:hover {
+    color: white;
+    background: linear-gradient(120deg, #115e59, #0f172a);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.22);
+}
+
+.logo-inicio:hover .logo-inicio__flecha {
+    transform: translateX(-4px);
+}
+
+/* Accesibilidad al navegar con teclado */
+.logo-inicio:focus-visible {
+    outline: 4px solid #f59e0b;
+    outline-offset: 5px;
+}
+
+/* Adaptación a móviles */
+@media (max-width: 600px) {
+    .logo-inicio {
+        min-height: 58px;
+        gap: 11px;
+        padding: 8px 14px 8px 8px;
+        font-size: 0.88rem;
+    }
+
+    .logo-inicio__marca {
+        width: 42px;
+        height: 42px;
+        font-size: 1.2rem;
+    }
+
+    .logo-inicio__flecha {
+        width: 27px;
+        height: 27px;
+        margin-left: 0;
+    }
+}
+
+/* No mostramos la navegación al imprimir */
+@media print {
+    .logo-inicio {
+        display: none;
+    }
+}
+
+/* Respetamos la preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    .logo-inicio,
+    .logo-inicio__flecha {
+        transition: none;
+    }
+
+    .logo-inicio:hover {
+        transform: none;
+    }
+}
+
+
+:root {
+
+    /* Colores principales */
+    --color-primary: #0f172a;
+    --color-accent: #0f766e;
+    --color-accent-light: #ccfbf1;
+
+    /* Colores obligatorios de los niveles */
+    --color-nivel-alto-bg: #198754;
+    --color-nivel-alto-text: #ffffff;
+
+    --color-nivel-medio-bg: #8fd19e;
+    --color-nivel-medio-text: #0f381e;
+
+    --color-nivel-bajo-bg: #d1e7dd;
+    --color-nivel-bajo-text: #0b3720;
+
+    /* Fondos */
+    --bg-body: #f1f5f9;
+    --bg-card: #ffffff;
+    --bg-subtle: #f8fafc;
+
+    /* Textos */
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+
+    /* Bordes */
+    --border-color: #e2e8f0;
+    --border-hover: #cbd5e1;
+
+    /* Sombras */
+    --shadow-sm: 0 2px 5px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.07);
+    --shadow-lg: 0 15px 35px rgba(15, 23, 42, 0.09);
+
+    /* Bordes redondeados */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+
+    /* Tipografías */
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+
+    /* Transiciones */
+    --transition: 0.2s ease;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. ESTILOS GENERALES
+   -------------------------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    padding: 40px 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+
+    background-color: var(--bg-body);
+    background-image: radial-gradient(circle at top left, rgba(15, 118, 110, 0.06), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.04), transparent 35%);
+}
+
+
+/* --------------------------------------------------------------------------
+   3. CONTENEDOR PRINCIPAL
+   -------------------------------------------------------------------------- */
+
+.curriculum {
+    width: 100%;
+    max-width: 1000px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+
+    padding: 55px 60px;
+
+    background-color: var(--bg-card);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* Línea decorativa superior */
+
+.curriculum::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 6px;
+
+    background: linear-gradient(
+            90deg,
+            #0f766e,
+            #198754,
+            #8fd19e
+    );
+}
+
+
+/* --------------------------------------------------------------------------
+   4. ENCABEZADO Y PRESENTACIÓN
+   -------------------------------------------------------------------------- */
+
+.curriculum > header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.curriculum > header h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1.5px;
+
+    color: var(--text-primary);
+}
+
+.curriculum > header h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: var(--color-accent);
+}
+
+.curriculum > header h2::after {
+    content: "";
+
+    width: 35px;
+    height: 2px;
+
+    background-color: var(--color-accent-light);
+}
+
+.curriculum > header p {
+    max-width: 750px;
+
+    margin-top: 5px;
+
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+
+/* --------------------------------------------------------------------------
+   5. TÍTULOS DE LAS SECCIONES
+   -------------------------------------------------------------------------- */
+
+.curriculum > section > h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 22px;
+
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+
+    color: var(--text-primary);
+}
+
+.curriculum > section > h2::before {
+    content: "";
+
+    width: 5px;
+    height: 24px;
+
+    flex-shrink: 0;
+
+    background-color: var(--color-accent);
+    border-radius: 10px;
+}
+
+
+/* --------------------------------------------------------------------------
+   6. CONTACTO
+   -------------------------------------------------------------------------- */
+
+.curriculum > section:has(> p a[href^="mailto:"]) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 22px 25px;
+
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+
+    transition: var(--transition);
+}
+
+.curriculum > section:has(> p a[href^="mailto:"]) > h2 {
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+.curriculum > section:has(> p a[href^="mailto:"]) > p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.curriculum > section:has(> p a[href^="mailto:"]) a {
+    color: var(--color-accent);
+    font-weight: 600;
+    text-decoration: none;
+
+    padding: 5px 12px;
+
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+
+    transition: var(--transition);
+}
+
+.curriculum > section:has(> p a[href^="mailto:"]) a:hover {
+    color: var(--color-primary);
+    border-color: var(--color-accent);
+    background-color: #f0fdfa;
+}
+
+
+/* --------------------------------------------------------------------------
+   7. FORMACIÓN ACADÉMICA
+   -------------------------------------------------------------------------- */
+
+.curriculum > section:has(> div > h3 + p + p):not(:has(> div > h3 + p + p + p)) > div {
+    margin-bottom: 15px;
+    padding: 22px 25px;
+
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+
+    transition: var(--transition);
+}
+
+.curriculum > section:has(> div > h3 + p + p):not(:has(> div > h3 + p + p + p)) > div:hover {
+    background-color: white;
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.curriculum > section:has(> div > h3 + p + p):not(:has(> div > h3 + p + p + p)) h3 {
+    margin-bottom: 5px;
+
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+
+    color: var(--text-primary);
+}
+
+.curriculum > section:has(> div > h3 + p + p):not(:has(> div > h3 + p + p + p)) p:first-of-type {
+    margin-bottom: 8px;
+
+    font-size: 0.98rem;
+    font-weight: 600;
+
+    color: var(--color-accent);
+}
+
+.curriculum > section:has(> div > h3 + p + p):not(:has(> div > h3 + p + p + p)) p:last-of-type {
+    display: inline-block;
+
+    padding: 4px 10px;
+
+    font-size: 0.82rem;
+    font-weight: 600;
+
+    color: var(--text-muted);
+    background-color: #e9eef3;
+    border-radius: var(--radius-sm);
+}
+
+
+/* --------------------------------------------------------------------------
+   8. EXPERIENCIA LABORAL
+   -------------------------------------------------------------------------- */
+
+/* Línea de tiempo */
+
+.curriculum > section:has(> div > h3 + p + p + p) > div:has(> h3) {
+    position: relative;
+
+    margin-left: 6px;
+    margin-bottom: 25px;
+    padding-left: 25px;
+
+    border-left: 2px solid var(--border-color);
+}
+
+/* Punto de la línea de tiempo */
+
+.curriculum > section:has(> div > h3 + p + p + p) > div:has(> h3)::before {
+    content: "";
+
+    position: absolute;
+    top: 5px;
+    left: -7px;
+
+    width: 10px;
+    height: 10px;
+
+    background-color: white;
+    border: 3px solid var(--color-accent);
+    border-radius: 50%;
+}
+
+.curriculum > section:has(> div > h3 + p + p + p) > div:has(> h3) h3 {
+    margin-bottom: 5px;
+
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+
+    color: var(--text-primary);
+}
+
+.curriculum > section:has(> div > h3 + p + p + p) > div:has(> h3) p:first-of-type {
+    margin-bottom: 5px;
+
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.curriculum > section:has(> div > h3 + p + p + p) > div:has(> h3) p:nth-of-type(2) {
+    display: inline-block;
+
+    margin-bottom: 8px;
+    padding: 3px 9px;
+
+    font-size: 0.82rem;
+    font-weight: 600;
+
+    color: var(--text-muted);
+    background-color: #e9eef3;
+    border-radius: var(--radius-sm);
+}
+
+.curriculum > section:has(> div > h3 + p + p + p) > div:has(> h3) p:nth-of-type(3) {
+    margin-top: 5px;
+
+    font-size: 0.95rem;
+    line-height: 1.7;
+
+    color: var(--text-secondary);
+}
+
+/* Mensaje cuando no hay experiencia */
+
+.curriculum > section:has(> div > h3 + p + p + p) > div:not(:has(> h3)) {
+    padding: 20px;
+
+    text-align: center;
+    font-style: italic;
+
+    color: var(--text-muted);
+    background-color: var(--bg-subtle);
+    border: 1px dashed var(--border-hover);
+    border-radius: var(--radius-md);
+}
+
+
+/* --------------------------------------------------------------------------
+   9. HABILIDADES E IDIOMAS
+   -------------------------------------------------------------------------- */
+
+.curriculum > section:has(.nivel-alto, .nivel-medio, .nivel-bajo) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.curriculum > section:has(.nivel-alto, .nivel-medio, .nivel-bajo) > h2 {
+    margin-bottom: 8px;
+}
+
+.curriculum > section:has(.nivel-alto, .nivel-medio, .nivel-bajo) > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    padding: 13px 16px;
+
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+
+    transition: var(--transition);
+}
+
+.curriculum > section:has(.nivel-alto, .nivel-medio, .nivel-bajo) > div:hover {
+    background-color: white;
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+}
+
+/* Nombre de la habilidad o idioma */
+
+.curriculum > section:has(.nivel-alto, .nivel-medio, .nivel-bajo) > div > span:first-child {
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    color: var(--text-primary);
+}
+
+
+/* --------------------------------------------------------------------------
+   10. NIVELES DE HABILIDADES E IDIOMAS
+   -------------------------------------------------------------------------- */
+
+.nivel-alto,
+.nivel-medio,
+.nivel-bajo {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 6px 12px;
+
+    border-radius: 30px;
+
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+/* Nivel alto */
+
+.nivel-alto {
+    background-color: var(--color-nivel-alto-bg);
+    color: var(--color-nivel-alto-text);
+}
+
+/* Nivel medio */
+
+.nivel-medio {
+    background-color: var(--color-nivel-medio-bg);
+    color: var(--color-nivel-medio-text);
+}
+
+/* Nivel bajo */
+
+.nivel-bajo {
+    background-color: var(--color-nivel-bajo-bg);
+    color: var(--color-nivel-bajo-text);
+}
+
+/* Punto indicador */
+
+.nivel-alto::before,
+.nivel-medio::before,
+.nivel-bajo::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+.nivel-alto::before {
+    background-color: white;
+}
+
+.nivel-medio::before {
+    background-color: #0f381e;
+}
+
+.nivel-bajo::before {
+    background-color: #0b3720;
+}
+
+
+/* --------------------------------------------------------------------------
+   11. PIE DE PÁGINA Y CAMBIO DE IDIOMA
+   -------------------------------------------------------------------------- */
+
+.curriculum > footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    padding-top: 25px;
+    border-top: 1px solid var(--border-color);
+
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.curriculum > footer a {
+    padding: 7px 13px;
+
+    color: var(--text-muted);
+    font-weight: 600;
+    text-decoration: none;
+
+    border-radius: var(--radius-sm);
+
+    transition: var(--transition);
+}
+
+.curriculum > footer a:hover {
+    color: var(--color-accent);
+    background-color: #f0fdfa;
+}
+
+
+/* --------------------------------------------------------------------------
+   12. DISEÑO RESPONSIVE
+   -------------------------------------------------------------------------- */
+
+/* Tablets */
+
+@media (min-width: 650px) {
+
+    .curriculum > section:has(.nivel-alto, .nivel-medio, .nivel-bajo) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .curriculum > section:has(.nivel-alto, .nivel-medio, .nivel-bajo) > h2 {
+        grid-column: 1 / -1;
+    }
+
+}
+
+/* Escritorio */
+
+@media (min-width: 900px) {
+
+    .curriculum {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 35px;
+        row-gap: 30px;
+    }
+
+    /* Secciones que ocupan todo el ancho */
+    .curriculum > header,
+    .curriculum > footer,
+    .curriculum > section:not(:has(.nivel-alto, .nivel-medio, .nivel-bajo)) {
+        grid-column: 1 / -1;
+    }
+
+    /* Habilidades */
+    .curriculum > section:has(.nivel-alto, .nivel-medio, .nivel-bajo) {
+        grid-column: 1;
+        grid-template-columns: 1fr;
+    }
+
+    /* Idiomas */
+    .curriculum > section:has(.nivel-alto, .nivel-medio, .nivel-bajo)
+    ~ section:has(.nivel-alto, .nivel-medio, .nivel-bajo) {
+        grid-column: 2;
+    }
+
+}
+
+
+/* --------------------------------------------------------------------------
+   13. MÓVILES
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 12px;
+    }
+
+    .curriculum {
+        padding: 32px 22px;
+        gap: 25px;
+
+        border-radius: var(--radius-lg);
+    }
+
+    .curriculum > header h1 {
+        font-size: 2.2rem;
+    }
+
+    .curriculum > header h2 {
+        font-size: 1rem;
+    }
+
+    .curriculum > section > h2 {
+        font-size: 1.2rem;
+    }
+
+    .curriculum > section:has(> p a[href^="mailto:"]) {
+        padding: 18px;
+    }
+
+    .curriculum > section:has(> div > h3 + p + p):not(:has(> div > h3 + p + p + p)) > div {
+        padding: 18px;
+    }
+
+    .curriculum > section:has(.nivel-alto, .nivel-medio, .nivel-bajo) > div {
+        padding: 12px;
+    }
+
+    .nivel-alto,
+    .nivel-medio,
+    .nivel-bajo {
+        padding: 5px 9px;
+        font-size: 0.68rem;
+    }
+
+}
+
+
+/* --------------------------------------------------------------------------
+   14. IMPRESIÓN Y EXPORTACIÓN A PDF
+   -------------------------------------------------------------------------- */
+
+@media print {
+
+    @page {
+        size: A4;
+        margin: 15mm;
+    }
+
+    body {
+        display: block;
+
+        padding: 0;
+        min-height: auto;
+
+        background: white;
+        color: #334155;
+    }
+
+    .curriculum {
+        display: block;
+
+        width: 100%;
+        max-width: 100%;
+
+        padding: 0;
+
+        background: white;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .curriculum::before {
+        display: none;
+    }
+
+    .curriculum > header {
+        margin-bottom: 25px;
+    }
+
+    .curriculum > section {
+        margin-bottom: 25px;
+    }
+
+    .curriculum > footer {
+        display: none;
+    }
+
+    .curriculum > section:has(.nivel-alto, .nivel-medio, .nivel-bajo) {
+        display: inline-block;
+        width: 48%;
+        vertical-align: top;
+    }
+
+    .curriculum > section:has(> div > h3 + p + p):not(:has(> div > h3 + p + p + p)) > div,
+    .curriculum > section:has(> div > h3 + p + p + p) > div:has(> h3) {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .nivel-alto,
+    .nivel-medio,
+    .nivel-bajo {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}

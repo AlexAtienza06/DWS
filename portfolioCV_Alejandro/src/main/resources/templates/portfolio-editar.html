@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{editar.titulo}">Crear mi portfolio</title>
+    <link rel="stylesheet" th:href="@{/estilos3.css}">
+</head>
+
+<body>
+<!-- Formulario que envía los datos al controlador -->
+<form th:action="@{/portfolio/editar}" method="post" th:object="${formulario}" novalidate>
+    <header>
+        <!-- Acceso para volver a la página de inicio -->
+        <a th:href="@{/(lang=${#locale.language})}" class="acceso-inicio" th:attr="aria-label=#{inicio.volver}">
+            <span class="acceso-inicio__marca">AA.</span>
+            <span class="acceso-inicio__texto" th:text="#{inicio.volver}">Volver al inicio</span>
+            <span class="acceso-inicio__flecha" aria-hidden="true">←</span>
+        </a>
+        <h1 th:text="#{editar.titulo}">Crear mi portfolio</h1>
+        <!-- Selector para cambiar el idioma sin perder los datos -->
+        <div class="idiomas">
+            <button type="submit" class="enlace-idioma" th:formaction="@{/portfolio/editar(accion='idioma',lang='es')}">
+                Español
+            </button>
+            |
+            <button type="submit" class="enlace-idioma" th:formaction="@{/portfolio/editar(accion='idioma',lang='en')}">
+                English
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Aviso general cuando hay errores de validación -->
+        <p th:if="${hayErrores}" th:text="#{editar.revisar}">Revisa los campos indicados</p>
+
+        <!-- Apartado con los datos personales -->
+        <section>
+            <h2 th:text="#{editar.datosPersonales}">Datos personales</h2>
+
+            <div>
+                <label th:text="#{editar.nombre}">Nombre completo</label>
+                <input type="text" th:field="*{nombre}">
+                <!-- Mostramos el error si el nombre no es correcto -->
+                <p th:if="${errores['nombre'] != null}" th:text="${errores['nombre']}"></p>
+            </div>
+
+            <div>
+                <label th:text="#{editar.titular}">Titular profesional</label>
+                <input type="text" th:field="*{titular}">
+                <p th:if="${errores['titular'] != null}" th:text="${errores['titular']}"></p>
+            </div>
+
+            <div>
+                <label th:text="#{editar.presentacion}">Presentación</label>
+                <textarea th:field="*{presentacion}"></textarea>
+                <p th:if="${errores['presentacion'] != null}" th:text="${errores['presentacion']}"></p>
+            </div>
+
+            <!-- Estos dos campos son opcionales -->
+            <div>
+                <label th:text="#{editar.ciudad}">Ciudad (opcional)</label>
+                <input type="text" th:field="*{ciudad}">
+            </div>
+
+            <div>
+                <label th:text="#{editar.correo}">Correo electrónico (opcional)</label>
+                <input type="text" th:field="*{correo}">
+                <p th:if="${errores['correo'] != null}" th:text="${errores['correo']}"></p>
+            </div>
+        </section>
+
+        <!-- Apartado para añadir y gestionar los proyectos -->
+        <section>
+            <h2 th:text="#{editar.proyectos}">Proyectos</h2>
+
+            <!-- Mostramos el número de proyectos y el máximo permitido -->
+            <p>
+                <span th:text="#{editar.contador}">Proyectos</span>:
+                <span th:text="${totalProyectos}"></span>
+                /
+                <span th:text="${maxProyectos}"></span>
+            </p>
+
+            <!-- Error general relacionado con los proyectos -->
+            <p th:if="${errores['proyectos'] != null}" th:text="${errores['proyectos']}"></p>
+
+            <!-- Recorremos la lista para generar una fila por cada proyecto -->
+            <div th:each="proyecto, iteracion : *{proyectos}">
+                <article>
+                    <h3>
+                        <span th:text="#{editar.proyecto}">Proyecto</span>
+                        <span th:text="${iteracion.index + 1}"></span>
+                    </h3>
+
+                    <!-- Campo para introducir el título -->
+                    <div>
+                        <label th:text="#{editar.tituloProyecto}">Título</label>
+                        <input type="text" th:field="*{proyectos[__${iteracion.index}__].titulo}">
+                        <p th:if="${errores['proyectos_' + iteracion.index + '_titulo'] != null}"
+                           th:text="${errores['proyectos_' + iteracion.index + '_titulo']}"></p>
+                    </div>
+
+                    <!-- Campo para introducir el año -->
+                    <div>
+                        <label th:text="#{editar.anio}">Año</label>
+                        <input type="number" th:field="*{proyectos[__${iteracion.index}__].anio}">
+                        <p th:if="${errores['proyectos_' + iteracion.index + '_anio'] != null}"
+                           th:text="${errores['proyectos_' + iteracion.index + '_anio']}"></p>
+                    </div>
+
+                    <!-- Selector de categoría del proyecto -->
+                    <div>
+                        <label th:text="#{editar.categoria}">Categoría</label>
+
+                        <select th:field="*{proyectos[__${iteracion.index}__].categoria}">
+                            <option value="" th:text="#{editar.seleccionarCategoria}">Selecciona una categoría</option>
+                            <option value="Aplicaciones" th:text="#{editar.aplicaciones}">Aplicaciones</option>
+                            <option value="Sitios web" th:text="#{editar.sitiosWeb}">Sitios web</option>
+                            <option value="Diseño" th:text="#{editar.diseno}">Diseño</option>
+                        </select>
+                        <p th:if="${errores['proyectos_' + iteracion.index + '_categoria'] != null}"
+                           th:text="${errores['proyectos_' + iteracion.index + '_categoria']}"></p>
+                    </div>
+
+                    <!-- Selector del estado del proyecto -->
+                    <div>
+                        <label th:text="#{editar.estado}">Estado</label>
+                        <select th:field="*{proyectos[__${iteracion.index}__].estado}">
+                            <option value="" th:text="#{editar.seleccionarEstado}">Selecciona un estado</option>
+
+                            <option value="En curso" th:text="#{editar.enCurso}">En curso</option>
+                            <option value="Terminado" th:text="#{editar.terminado}">Terminado</option>
+                        </select>
+                        <p th:if="${errores['proyectos_' + iteracion.index + '_estado'] != null}"
+                           th:text="${errores['proyectos_' + iteracion.index + '_estado']}"></p>
+                    </div>
+
+                    <!-- Campo para introducir la descripción -->
+                    <div>
+                        <label th:text="#{editar.descripcion}">Descripción</label>
+                        <textarea th:field="*{proyectos[__${iteracion.index}__].descripcion}"></textarea>
+                        <p th:if="${errores['proyectos_' + iteracion.index + '_descripcion'] != null}"
+                           th:text="${errores['proyectos_' + iteracion.index + '_descripcion']}"></p>
+                    </div>
+
+                    <!-- Botón que envía el índice de la fila que queremos eliminar -->
+                    <button type="submit" name="accion" th:value="|quitar:${iteracion.index}|"
+                            th:text="#{editar.quitar}">Quitar este proyecto
+                    </button>
+                </article>
+            </div>
+
+            <!-- El botón de añadir solo aparece si no se ha alcanzado el máximo -->
+            <div th:if="${totalProyectos < maxProyectos}">
+                <button type="submit" name="accion" value="anadir" th:text="#{editar.anadir}">Añadir proyecto</button>
+            </div>
+
+            <!-- Aviso que aparece cuando se alcanza el límite -->
+            <p th:if="${totalProyectos >= maxProyectos}" th:text="#{editar.maximo}">Has alcanzado el máximo de proyectos
+                permitidos.</p>
+        </section>
+
+        <!-- Envía los datos para validarlos y generar la vista previa -->
+        <button type="submit" name="accion" value="vistaPrevia" th:text="#{editar.vistaPrevia}">Generar vista previa
+        </button>
+    </main>
+</form>
+</body>
+</html>

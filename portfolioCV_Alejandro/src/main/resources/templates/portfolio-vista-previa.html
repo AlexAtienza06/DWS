@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{vista.titulo}">Mi portfolio</title>
+    <link rel="stylesheet" th:href="@{/estilos3.css}">
+</head>
+
+<body>
+<header>
+    <h1 th:text="#{vista.titulo}">Mi portfolio</h1>
+
+    <!-- Formularios para cambiar el idioma manteniendo los datos del portfolio -->
+    <div class="idiomas">
+        <form th:action="@{/portfolio/editar}" method="post" th:object="${formulario}">
+            <input type="hidden" name="accion" value="vistaPrevia">
+            <input type="hidden" name="lang" value="es">
+
+            <!-- Se envían los datos personales para conservarlos -->
+            <input type="hidden" th:field="*{nombre}">
+            <input type="hidden" th:field="*{titular}">
+            <input type="hidden" th:field="*{presentacion}">
+            <input type="hidden" th:field="*{ciudad}">
+            <input type="hidden" th:field="*{correo}">
+
+            <!-- Se envían también los datos de todos los proyectos -->
+            <div th:each="proyecto, iteracion : *{proyectos}">
+                <input type="hidden" th:field="*{proyectos[__${iteracion.index}__].titulo}">
+                <input type="hidden" th:field="*{proyectos[__${iteracion.index}__].anio}">
+                <input type="hidden" th:field="*{proyectos[__${iteracion.index}__].categoria}">
+                <input type="hidden" th:field="*{proyectos[__${iteracion.index}__].estado}">
+                <input type="hidden" th:field="*{proyectos[__${iteracion.index}__].descripcion}">
+            </div>
+            <button type="submit" class="enlace-idioma">Español</button>
+        </form>
+        |
+        <form th:action="@{/portfolio/editar}" method="post"
+              th:object="${formulario}">
+
+            <input type="hidden" name="accion" value="vistaPrevia">
+            <input type="hidden" name="lang" value="en">
+
+            <!-- Se envían los datos personales para conservarlos -->
+            <input type="hidden" th:field="*{nombre}">
+            <input type="hidden" th:field="*{titular}">
+            <input type="hidden" th:field="*{presentacion}">
+            <input type="hidden" th:field="*{ciudad}">
+            <input type="hidden" th:field="*{correo}">
+
+            <!-- Se envían también los datos de todos los proyectos -->
+            <div th:each="proyecto, iteracion : *{proyectos}">
+                <input type="hidden"
+                       th:field="*{proyectos[__${iteracion.index}__].titulo}">
+                <input type="hidden"
+                       th:field="*{proyectos[__${iteracion.index}__].anio}">
+                <input type="hidden"
+                       th:field="*{proyectos[__${iteracion.index}__].categoria}">
+                <input type="hidden"
+                       th:field="*{proyectos[__${iteracion.index}__].estado}">
+                <input type="hidden"
+                       th:field="*{proyectos[__${iteracion.index}__].descripcion}">
+            </div>
+            <button type="submit" class="enlace-idioma">English</button>
+        </form>
+    </div>
+</header>
+
+<main>
+    <!-- Muestra los datos personales introducidos en el formulario -->
+    <section>
+        <h2 th:text="${formulario.nombre}">Nombre completo</h2>
+        <h3 th:text="${formulario.titular}">Titular profesional</h3>
+        <p th:text="${formulario.presentacion}">
+            Presentación personal
+        </p>
+
+        <!-- La ciudad solo aparece si se ha rellenado -->
+        <div th:if="${!#strings.isEmpty(formulario.ciudad)}">
+            <p>
+                <span th:text="#{vista.ciudad}">Ciudad</span>:
+                <span th:text="${formulario.ciudad}"></span>
+            </p>
+        </div>
+
+        <!-- El correo solo aparece si se ha rellenado -->
+        <div th:if="${!#strings.isEmpty(formulario.correo)}">
+            <p>
+                <span th:text="#{vista.correo}">Correo</span>:
+                <span th:text="${formulario.correo}"></span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Muestra los proyectos introducidos -->
+    <section>
+        <h2 th:text="#{vista.misProyectos}">Mis proyectos</h2>
+
+        <!-- Mensaje que aparece cuando no hay proyectos -->
+        <p th:if="${#lists.isEmpty(formulario.proyectos)}"
+           th:text="#{vista.sinProyectos}">
+            Todavía no hay proyectos en este portfolio.
+        </p>
+
+        <!-- Recorre la lista y muestra cada proyecto -->
+        <div th:each="proyecto : ${formulario.proyectos}">
+            <article>
+                <h3 th:text="${proyecto.titulo}"></h3>
+
+                <p>
+                    <span th:text="#{vista.anio}">Año</span>:
+                    <span th:text="${proyecto.anio}"></span>
+                </p>
+
+                <!-- Muestra la categoría traducida según su valor -->
+                <p>
+                    <span th:text="#{vista.categoria}">Categoría</span>:
+                    <span th:switch="${proyecto.categoria}">
+                        <span th:case="'Aplicaciones'" th:text="#{editar.aplicaciones}">Aplicaciones</span>
+                        <span th:case="'Sitios web'" th:text="#{editar.sitiosWeb}">Sitios web</span>
+                        <span th:case="'Diseño'" th:text="#{editar.diseno}">Diseño</span>
+                    </span>
+                </p>
+                <p th:text="${proyecto.descripcion}"></p>
+
+                <!-- Muestra el estado del proyecto con su estilo correspondiente -->
+                <div th:switch="${proyecto.estado}">
+                    <span th:case="'En curso'" class="estado-curso" th:text="#{vista.enCurso}">En curso</span>
+                    <span th:case="'Terminado'" class="estado-terminado" th:text="#{vista.terminado}">Terminado</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Formulario para volver a editar conservando todos los datos -->
+    <form th:action="@{/portfolio/editar}" method="post" th:object="${formulario}">
+        <input type="hidden" name="accion" value="volver">
+
+        <!-- Se conservan los datos personales -->
+        <input type="hidden" th:field="*{nombre}">
+        <input type="hidden" th:field="*{titular}">
+        <input type="hidden" th:field="*{presentacion}">
+        <input type="hidden" th:field="*{ciudad}">
+        <input type="hidden" th:field="*{correo}">
+
+        <!-- Se conservan los datos de cada proyecto -->
+        <div th:each="proyecto, iteracion : *{proyectos}">
+            <input type="hidden" th:field="*{proyectos[__${iteracion.index}__].titulo}">
+            <input type="hidden" th:field="*{proyectos[__${iteracion.index}__].anio}">
+            <input type="hidden" th:field="*{proyectos[__${iteracion.index}__].categoria}">
+            <input type="hidden" th:field="*{proyectos[__${iteracion.index}__].estado}">
+            <input type="hidden" th:field="*{proyectos[__${iteracion.index}__].descripcion}">
+        </div>
+        <button type="submit" th:text="#{editar.volver}">Volver al formulario</button>
+    </form>
+</main>
+</body>
+</html>

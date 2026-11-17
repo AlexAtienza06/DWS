@@ -1,0 +1,594 @@
+/* --------------------------------------------------------------------------
+   1. ESTILOS GENERALES
+   -------------------------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f5f9;
+    color: #263247;
+    line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   2. CABECERA DEL PORTFOLIO
+   -------------------------------------------------------------------------- */
+
+.cabecera-portfolio {
+    position: relative;
+    overflow: hidden;
+
+    background: linear-gradient(135deg, #172b4d, #2456a6);
+    color: white;
+    text-align: center;
+
+    padding: 38px 20px 45px;
+}
+
+/* Decoración de la cabecera */
+.cabecera-portfolio::before {
+    content: "";
+    position: absolute;
+    top: -120px;
+    right: -90px;
+
+    width: 300px;
+    height: 300px;
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.cabecera-portfolio::after {
+    content: "";
+    position: absolute;
+    bottom: -170px;
+    left: -100px;
+
+    width: 330px;
+    height: 330px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.cabecera-portfolio h1 {
+    position: relative;
+    z-index: 1;
+
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin: 30px 0 10px;
+    letter-spacing: 1px;
+}
+
+.cabecera-portfolio > p {
+    position: relative;
+    z-index: 1;
+
+    color: #dce7f7;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. ACCESO PARA VOLVER AL INICIO
+   -------------------------------------------------------------------------- */
+
+.acceso-inicio {
+    position: relative;
+    z-index: 2;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 13px;
+
+    width: fit-content;
+    max-width: 100%;
+    min-height: 66px;
+
+    padding: 9px 20px 9px 10px;
+
+    color: #172b4d;
+    background: white;
+
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+
+    font-size: 0.95rem;
+    font-weight: bold;
+    text-decoration: none;
+
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.20);
+
+    transition: background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Distintivo con las iniciales */
+.acceso-inicio__marca {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 48px;
+    height: 46px;
+
+    color: white;
+    background: linear-gradient(135deg, #2456a6, #172b4d);
+
+    border-radius: 11px;
+
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+/* Texto del acceso */
+.acceso-inicio__texto {
+    line-height: 1.3;
+}
+
+/* Flecha del acceso */
+.acceso-inicio__flecha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+
+    color: white;
+    background-color: #2456a6;
+
+    border-radius: 50%;
+    font-size: 1.2rem;
+
+    transition: transform 0.25s ease;
+}
+
+/* Efecto al pasar el ratón */
+.acceso-inicio:hover {
+    color: white;
+    background-color: #10213d;
+    transform: translateY(-3px);
+
+    box-shadow: 0 11px 25px rgba(0, 0, 0, 0.25);
+}
+
+.acceso-inicio:hover .acceso-inicio__marca {
+    color: #172b4d;
+    background: white;
+}
+
+.acceso-inicio:hover .acceso-inicio__flecha {
+    color: #2456a6;
+    background-color: white;
+    transform: translateX(-4px);
+}
+
+/* Accesibilidad con teclado */
+.acceso-inicio:focus-visible {
+    outline: 4px solid #fbbf24;
+    outline-offset: 5px;
+}
+
+/* --------------------------------------------------------------------------
+   4. CAMBIO DE IDIOMA
+   -------------------------------------------------------------------------- */
+
+.idiomas {
+    position: relative;
+    z-index: 1;
+
+    margin-top: 25px;
+    color: #b9c9e3;
+}
+
+.idiomas a {
+    display: inline-block;
+
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+
+    margin: 0 8px;
+    padding: 5px 8px;
+
+    border-radius: 6px;
+
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.idiomas a:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.15);
+    text-decoration: underline;
+}
+
+.idiomas a:focus-visible {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   5. CONTENIDO PRINCIPAL
+   -------------------------------------------------------------------------- */
+
+main {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+main section > h2 {
+    color: #172b4d;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+}
+
+/* --------------------------------------------------------------------------
+   6. FORMULARIO DE FILTROS
+   -------------------------------------------------------------------------- */
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+
+    background-color: white;
+    padding: 22px;
+
+    border: 1px solid #e5eaf1;
+    border-radius: 12px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+    margin-bottom: 22px;
+}
+
+form label {
+    font-weight: bold;
+    color: #34445e;
+}
+
+form select,
+form input {
+    min-height: 42px;
+    padding: 10px 12px;
+
+    border: 1px solid #d5dce7;
+    border-radius: 7px;
+
+    background-color: #fff;
+    color: #263247;
+    font-size: 0.95rem;
+}
+
+form select:focus-visible,
+form input:focus-visible {
+    outline: 3px solid rgba(57, 117, 215, 0.25);
+    border-color: #2456a6;
+}
+
+/* Botón para aplicar los filtros */
+form button {
+    min-height: 42px;
+
+    background-color: #2456a6;
+    color: white;
+
+    border: none;
+    padding: 11px 20px;
+    border-radius: 7px;
+
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+form button:hover {
+    background-color: #173e80;
+    transform: translateY(-2px);
+}
+
+form button:focus-visible {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+}
+
+/* Enlace para mostrar todos los proyectos */
+form a {
+    color: #2456a6;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+form a:hover {
+    color: #173e80;
+    background-color: #eaf1fc;
+    text-decoration: underline;
+}
+
+form a:focus-visible {
+    outline: 3px solid #2456a6;
+    outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   7. MENSAJES Y RESULTADOS
+   -------------------------------------------------------------------------- */
+
+main section > p {
+    color: #526078;
+    margin: 18px 0;
+}
+
+.contador-resultados {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.contador-resultados strong {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 32px;
+    min-height: 32px;
+    padding: 4px 9px;
+
+    color: white;
+    background-color: #2456a6;
+    border-radius: 8px;
+}
+
+.sin-resultados {
+    padding: 30px;
+    margin: 20px 0;
+
+    text-align: center;
+    color: #526078;
+
+    background-color: white;
+    border: 1px dashed #b9c9e3;
+    border-radius: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   8. TARJETAS DE LOS PROYECTOS
+   -------------------------------------------------------------------------- */
+
+.tarjeta-proyecto {
+    background-color: white;
+    padding: 25px;
+    margin: 20px 0;
+
+    border-radius: 13px;
+    border: 1px solid #e5eaf1;
+
+    box-shadow: 0 4px 14px rgba(22, 42, 74, 0.06);
+
+    transition: transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.tarjeta-proyecto:hover {
+    transform: translateY(-4px);
+    border-color: #c7d7ef;
+    box-shadow: 0 9px 22px rgba(22, 42, 74, 0.11);
+}
+
+.tarjeta-proyecto h3 {
+    color: #1d3e70;
+    font-size: 1.35rem;
+    margin: 0 0 15px;
+}
+
+.tarjeta-proyecto p {
+    color: #526078;
+    margin: 10px 0;
+}
+
+.tarjeta-proyecto p strong {
+    color: #263b5b;
+}
+
+/* Imagen del proyecto */
+.tarjeta-proyecto img {
+    display: block;
+    width: 100%;
+    max-height: 260px;
+
+    object-fit: cover;
+
+    border-radius: 9px;
+    margin-bottom: 18px;
+}
+
+/* --------------------------------------------------------------------------
+   9. ESTADOS DE LOS PROYECTOS
+   -------------------------------------------------------------------------- */
+
+.estado-curso,
+.estado-terminado {
+    display: inline-block;
+    padding: 4px 11px;
+
+    border-radius: 20px;
+
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.estado-curso {
+    background-color: #d9f3e4;
+    color: #167443;
+}
+
+.estado-terminado {
+    background-color: #e9edf2;
+    color: #435168;
+}
+
+/* --------------------------------------------------------------------------
+   10. LISTA DE TECNOLOGÍAS
+   -------------------------------------------------------------------------- */
+
+.tarjeta-proyecto ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 18px;
+}
+
+.tarjeta-proyecto li {
+    background-color: #eaf1fc;
+    color: #2456a6;
+
+    padding: 5px 12px;
+    border-radius: 20px;
+
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* --------------------------------------------------------------------------
+   11. ENLACE PARA VISITAR EL PROYECTO
+   -------------------------------------------------------------------------- */
+
+.tarjeta-proyecto > a {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 17px;
+
+    background-color: #2456a6;
+    color: white;
+
+    text-decoration: none;
+    border-radius: 7px;
+
+    font-weight: bold;
+    font-size: 0.9rem;
+
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.tarjeta-proyecto > a:hover {
+    background-color: #173e80;
+    transform: translateY(-2px);
+}
+
+.tarjeta-proyecto > a:focus-visible {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   12. ADAPTACIÓN A TABLETS Y MÓVILES
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 650px) {
+
+    .cabecera-portfolio {
+        padding: 25px 15px 35px;
+    }
+
+    .acceso-inicio {
+        min-height: 58px;
+        gap: 10px;
+        padding: 8px 14px 8px 8px;
+        font-size: 0.88rem;
+    }
+
+    .acceso-inicio__marca {
+        width: 42px;
+        height: 42px;
+        font-size: 1.2rem;
+    }
+
+    .acceso-inicio__flecha {
+        width: 27px;
+        height: 27px;
+        margin-left: 0;
+    }
+
+    .cabecera-portfolio h1 {
+        font-size: 2rem;
+        margin-top: 25px;
+    }
+
+    .cabecera-portfolio > p {
+        font-size: 1rem;
+    }
+
+    main {
+        margin: 25px auto;
+        padding: 0 14px;
+    }
+
+    main section > h2 {
+        font-size: 1.5rem;
+    }
+
+    form {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 18px;
+    }
+
+    form select,
+    form input,
+    form button {
+        width: 100%;
+    }
+
+    form a {
+        text-align: center;
+    }
+
+    .tarjeta-proyecto {
+        padding: 18px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   13. ACCESIBILIDAD Y MOVIMIENTO REDUCIDO
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}

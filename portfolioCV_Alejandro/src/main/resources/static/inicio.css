@@ -1,0 +1,187 @@
+
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f6fb;
+    color: #202b3c;
+    min-height: 100vh;
+}
+
+/* Contenedor principal */
+.inicio {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Cabecera */
+.cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #2457a7;
+    text-decoration: none;
+}
+
+.idiomas {
+    display: flex;
+    gap: 10px;
+    color: #8490a2;
+}
+
+.idiomas a {
+    color: #52647d;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.idiomas a:hover {
+    color: #2457a7;
+}
+
+/* Presentación */
+.presentacion {
+    text-align: center;
+    padding: 85px 15px 65px;
+}
+
+.etiqueta {
+    display: inline-block;
+    color: #2457a7;
+    background: #e1eafb;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+}
+
+.presentacion h1 {
+    font-size: 46px;
+    color: #172b4d;
+    margin-bottom: 18px;
+}
+
+.presentacion > p {
+    font-size: 19px;
+    color: #52647d;
+}
+
+.presentacion .texto-secundario {
+    font-size: 15px;
+    color: #8490a2;
+    margin-top: 12px;
+}
+
+/* Tarjetas de acceso */
+.opciones {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 80px;
+}
+
+.tarjeta {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 245px;
+    padding: 28px;
+    background: white;
+    border: 1px solid #e5eaf2;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #202b3c;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(31, 61, 105, 0.10);
+}
+
+.icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: #eaf1fc;
+    color: #2457a7;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.tarjeta h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #172b4d;
+}
+
+.tarjeta p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #718096;
+}
+
+.flecha {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+    font-size: 24px;
+    color: #2457a7;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 25px 0;
+    border-top: 1px solid #e1e7f0;
+    color: #8490a2;
+    font-size: 13px;
+}
+
+/* Adaptación a móviles */
+@media (max-width: 800px) {
+    .opciones {
+        grid-template-columns: 1fr;
+    }
+
+    .presentacion {
+        padding: 55px 10px;
+    }
+
+    .presentacion h1 {
+        font-size: 34px;
+    }
+
+    .tarjeta {
+        min-height: 210px;
+    }
+}
+
+@media (max-width: 450px) {
+    .presentacion h1 {
+        font-size: 29px;
+    }
+
+    .presentacion > p {
+        font-size: 16px;
+    }
+}
