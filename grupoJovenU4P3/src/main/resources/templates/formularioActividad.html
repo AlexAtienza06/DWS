@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <title>Actividad | Grupo Joven</title>
+</head>
+<body>
+
+<header>
+    <h1>Grupo Joven</h1>
+    <p>Gestión de actividades de la hermandad</p>
+</header>
+
+<main class="contenedor-formulario">
+    <!-- El título cambia dependiendo de si estamos creando o editando una actividad. -->
+    <h2 th:text="${actividad.id == null ? 'Registrar nueva actividad' : 'Editar actividad'}"></h2>
+
+    <!-- Thymeleaf utiliza el identificador para decidir a qué dirección enviar el formulario. -->
+    <form th:action="${actividad.id == null ? '/actividad/guardar' : '/actividad/actualizar'}"
+          th:object="${actividad}" method="post">
+
+        <input type="hidden" th:field="*{id}">
+
+        <!-- th:field relaciona cada campo del formulario con un atributo de la actividad. -->
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}">
+        <p class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
+
+        <label>Descripción:</label>
+        <textarea th:field="*{descripcion}" rows="3"></textarea>
+        <p class="error" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></p>
+
+        <label>Tipo:</label>
+        <input type="text" th:field="*{tipo}">
+        <p class="error" th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}"></p>
+
+        <label>Fecha:</label>
+        <input type="date" th:field="*{fecha}">
+        <p class="error" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></p>
+
+        <label>Hora:</label>
+        <input type="time" th:field="*{hora}">
+        <p class="error" th:if="${#fields.hasErrors('hora')}" th:errors="*{hora}"></p>
+
+        <label>Duración (minutos):</label>
+        <input type="number" th:field="*{duracionMinutos}" min="15" max="840">
+        <p class="error" th:if="${#fields.hasErrors('duracionMinutos')}" th:errors="*{duracionMinutos}"></p>
+
+        <label>Asistencia:</label>
+        <input type="number" th:field="*{asistencia}" min="0">
+        <p class="error" th:if="${#fields.hasErrors('asistencia')}" th:errors="*{asistencia}"></p>
+
+        <label>Coste (€):</label>
+        <input type="number" th:field="*{coste}" min="0" max="999.99" step="0.01">
+        <p class="error" th:if="${#fields.hasErrors('coste')}" th:errors="*{coste}"></p>
+
+        <label>¿Requiere inscripción?</label>
+        <select th:field="*{requiereInscripcion}">
+            <option value="">Selecciona una opción</option>
+            <option value="true">Sí</option>
+            <option value="false">No</option>
+        </select>
+        <p class="error" th:if="${#fields.hasErrors('requiereInscripcion')}" th:errors="*{requiereInscripcion}"></p>
+
+        <label>Lugar:</label>
+        <input type="text" th:field="*{lugar}">
+        <p class="error" th:if="${#fields.hasErrors('lugar')}" th:errors="*{lugar}"></p>
+        <button type="submit">Guardar actividad</button>
+    </form>
+    <a th:href="@{/}">Volver al listado</a>
+</main>
+</body>
+</html>

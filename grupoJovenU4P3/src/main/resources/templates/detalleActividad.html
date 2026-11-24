@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <title>Detalle de actividad | Grupo Joven</title>
+</head>
+<body>
+<header>
+    <h1>Grupo Joven</h1>
+    <p>Gestión de actividades de la hermandad</p>
+</header>
+<main class="contenedor-detalle">
+    <h2>Detalle de la actividad</h2>
+    <h3 class="nombre-actividad" th:text="${actividad.nombre}"></h3>
+    <p class="descripcion-actividad" th:text="${actividad.descripcion}"></p>
+    <div class="datos-actividad">
+        <p>
+            <strong>Tipo:</strong>
+            <span th:text="${actividad.tipo}"></span>
+        </p>
+        <p>
+            <strong>Fecha:</strong>
+            <!-- Se muestra la fecha en formato día-mes-año. -->
+            <span th:text="${#temporals.format(actividad.fecha, 'dd-MM-yyyy')}"></span>
+        </p>
+        <p>
+            <strong>Hora:</strong>
+            <span th:text="${actividad.hora}"></span>
+        </p>
+        <p>
+            <strong>Duración:</strong>
+            <span th:text="${actividad.duracionMinutos}"></span> minutos
+        </p>
+        <p>
+            <strong>Asistencia:</strong>
+            <!-- Si todavía no se conoce la asistencia, se muestra como pendiente. -->
+            <span th:text="${actividad.asistencia != null ? actividad.asistencia : 'Pendiente'}"></span>
+        </p>
+        <p>
+            <strong>Coste:</strong>
+            <!-- Se muestra el coste con dos decimales y coma como separador decimal. -->
+            <span th:text="${#numbers.formatDecimal(actividad.coste, 1, 2, 'COMMA')}"></span> €
+        </p>
+        <p>
+            <strong>Requiere inscripción:</strong>
+            <span th:text="${actividad.requiereInscripcion ? 'Sí' : 'No'}"></span>
+        </p>
+        <p>
+            <strong>Lugar:</strong>
+            <span th:text="${actividad.lugar}"></span>
+        </p>
+    </div>
+    <div class="acciones-detalle">
+        <a class="boton-editar" th:href="@{/actividad/editar/{id}(id=${actividad.id})}">
+            Editar actividad
+        </a>
+
+        <!-- Se pide confirmación antes de enviar la petición para eliminar la actividad. -->
+        <form th:action="@{/actividad/eliminar/{id}(id=${actividad.id})}"
+              method="post"
+              onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta actividad?');">
+            <button class="boton-eliminar" type="submit">
+                Eliminar actividad
+            </button>
+        </form>
+    </div>
+    <a th:href="@{/}">Volver al listado</a>
+</main>
+</body>
+</html>

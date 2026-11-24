@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <title>Actividades | Grupo Joven</title>
+</head>
+<body>
+
+<header>
+    <h1>Grupo Joven</h1>
+    <p>Gestión de actividades de la hermandad</p>
+</header>
+
+<nav class="navegacion">
+    <a th:href="@{/}">Inicio</a>
+</nav>
+
+<main>
+    <h2>Nueva actividad</h2>
+
+    <!-- El formulario envía los datos al controlador y los relaciona con ActividadForm. -->
+    <form th:action="@{/actividad/guardar}"
+          th:object="${actividadForm}"
+          method="post">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" th:field="*{nombre}">
+            <p class="error" th:if="${#fields.hasErrors('nombre')}"
+               th:errors="*{nombre}"></p>
+        </div>
+        <div>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" th:field="*{descripcion}"></textarea>
+            <p class="error" th:if="${#fields.hasErrors('descripcion')}"
+               th:errors="*{descripcion}"></p>
+        </div>
+        <div>
+            <label for="tipo">Tipo:</label>
+            <input type="text" id="tipo" th:field="*{tipo}">
+            <p class="error" th:if="${#fields.hasErrors('tipo')}"
+               th:errors="*{tipo}"></p>
+        </div>
+        <div>
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" th:field="*{fecha}">
+            <p class="error" th:if="${#fields.hasErrors('fecha')}"
+               th:errors="*{fecha}"></p>
+        </div>
+        <div>
+            <label for="hora">Hora:</label>
+            <input type="time" id="hora" th:field="*{hora}">
+            <p class="error" th:if="${#fields.hasErrors('hora')}"
+               th:errors="*{hora}"></p>
+        </div>
+        <div>
+            <label for="duracionMinutos">Duración (minutos):</label>
+            <input type="number" id="duracionMinutos" th:field="*{duracionMinutos}">
+            <p class="error" th:if="${#fields.hasErrors('duracionMinutos')}"
+               th:errors="*{duracionMinutos}"></p>
+        </div>
+        <div>
+            <label for="asistencia">Asistencia:</label>
+            <input type="number" id="asistencia" th:field="*{asistencia}">
+            <p class="error" th:if="${#fields.hasErrors('asistencia')}"
+               th:errors="*{asistencia}"></p>
+        </div>
+        <div>
+            <label for="coste">Coste (€):</label>
+            <input type="number" id="coste" step="0.01" th:field="*{coste}">
+            <p class="error" th:if="${#fields.hasErrors('coste')}"
+               th:errors="*{coste}"></p>
+        </div>
+        <div>
+            <label for="requiereInscripcion">¿Requiere inscripción?</label>
+            <select id="requiereInscripcion" th:field="*{requiereInscripcion}">
+                <option value="">Selecciona una opción</option>
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+            </select>
+            <p class="error" th:if="${#fields.hasErrors('requiereInscripcion')}"
+               th:errors="*{requiereInscripcion}"></p>
+        </div>
+        <div>
+            <label for="lugar">Lugar:</label>
+            <input type="text" id="lugar" th:field="*{lugar}">
+            <p class="error" th:if="${#fields.hasErrors('lugar')}"
+               th:errors="*{lugar}"></p>
+        </div>
+        <button type="submit">Guardar actividad</button>
+    </form>
+
+    <h2>Actividades</h2>
+    <!-- Este mensaje solo aparece cuando todavía no hay actividades guardadas. -->
+    <div th:if="${#lists.isEmpty(actividades)}">
+        <p>No hay actividades registradas.</p>
+    </div>
+
+    <div class="contenedor-actividades">
+        <!-- th:each crea una tarjeta por cada actividad recibida desde el controlador. -->
+        <div class="tarjeta-actividad" th:each="actividad : ${actividades}">
+            <h3 th:text="${actividad.nombre}"></h3>
+            <p th:text="${actividad.descripcion}"></p>
+            <p>
+                <strong>Fecha:</strong>
+                <!-- Se cambia el formato de la fecha para mostrarla de forma más legible. -->
+                <span th:text="${#temporals.format(actividad.fecha, 'dd-MM-yyyy')}"></span>
+            </p>
+            <p>
+                <strong>Lugar:</strong>
+                <span th:text="${actividad.lugar}"></span>
+            </p>
+
+            <a th:href="@{/actividad/{id}(id=${actividad.id})}">
+                Ver detalles
+            </a>
+        </div>
+    </div>
+</main>
+</body>
+</html>
